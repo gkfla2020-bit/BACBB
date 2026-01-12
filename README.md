@@ -188,7 +188,7 @@ Expected Return
 
 <div align="center">
 
-### β = β<sub>CF</sub> + β<sub>DR</sub>
+$$\LARGE \beta^{Total} = \beta^{CF} + \beta^{DR}$$
 
 </div>
 
@@ -200,13 +200,13 @@ Expected Return
 <th width="20%" align="center">Risk Type</th>
 </tr>
 <tr>
-<td align="center"><strong>β<sub>CF</sub></strong></td>
+<td align="center">$\beta^{CF}$</td>
 <td align="center">Cash-Flow Beta</td>
 <td>영구적 현금흐름 충격에 대한 민감도</td>
 <td align="center">🔴 <strong>Bad Beta</strong></td>
 </tr>
 <tr>
-<td align="center"><strong>β<sub>DR</sub></strong></td>
+<td align="center">$\beta^{DR}$</td>
 <td align="center">Discount Rate Beta</td>
 <td>일시적 할인율 변동에 대한 민감도</td>
 <td align="center">🟢 Good Beta</td>
@@ -215,21 +215,32 @@ Expected Return
 
 ### 왜 Cash-Flow Beta가 "나쁜" 베타인가?
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                                     │
-│   Cash-Flow News (N_CF)                                            │
-│   ├── 기업의 펀더멘털에 대한 영구적 충격                              │
-│   ├── 회복이 어려움 (permanent shock)                               │
-│   └── β_CF가 높은 자산 → 펀더멘털 악화에 취약 → "나쁜 베타"            │
-│                                                                     │
-│   Discount Rate News (N_DR)                                        │
-│   ├── 일시적인 할인율 변동                                           │
-│   ├── 장기적으로 평균회귀 (mean-reverting)                           │
-│   └── β_DR이 높은 자산 → 단기 변동성 크지만 장기 위험 낮음             │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
+<table>
+<tr>
+<td width="50%">
+
+**Cash-Flow News** $N_{CF}$
+
+| | |
+|:--|:--|
+| 📌 | 기업의 펀더멘털에 대한 **영구적 충격** |
+| 📌 | 회복이 어려움 (permanent shock) |
+| 📌 | $\beta^{CF}$가 높은 자산 → **"나쁜 베타"** |
+
+</td>
+<td width="50%">
+
+**Discount Rate News** $N_{DR}$
+
+| | |
+|:--|:--|
+| 📌 | 일시적인 할인율 변동 |
+| 📌 | 장기적으로 평균회귀 (mean-reverting) |
+| 📌 | $\beta^{DR}$이 높은 자산 → 단기 변동성만 |
+
+</td>
+</tr>
+</table>
 
 
 <br>
@@ -287,7 +298,7 @@ Expected Return
 
 <div align="center">
 
-### z<sub>t+1</sub> = c + A · z<sub>t</sub> + u<sub>t+1</sub>
+$$\Large \mathbf{z}_{t+1} = \mathbf{c} + \mathbf{A} \cdot \mathbf{z}_t + \mathbf{u}_{t+1}$$
 
 </div>
 
@@ -300,17 +311,17 @@ Expected Return
 <th width="50%">Description</th>
 </tr>
 <tr>
-<td align="center"><strong>z₁</strong></td>
+<td align="center">$z_1$</td>
 <td align="center">Market Excess Return</td>
 <td>시가총액 가중 평균 수익률 - 무위험수익률</td>
 </tr>
 <tr>
-<td align="center"><strong>z₂</strong></td>
+<td align="center">$z_2$</td>
 <td align="center">Term Spread</td>
 <td>10년 국채 - 3개월 국채 금리</td>
 </tr>
 <tr>
-<td align="center"><strong>z₃</strong></td>
+<td align="center">$z_3$</td>
 <td align="center">Valuation Indicator</td>
 <td>과거 100주 누적수익률의 음수</td>
 </tr>
@@ -342,42 +353,45 @@ Expected Return
 
 <div align="center">
 
-#### 할인인자 (Discount Factor): ρ = 0.997 (daily)
+#### 할인인자 (Discount Factor)
+
+$$\rho = 0.997 \text{ (daily)}$$
 
 </div>
 
 #### Cash-Flow News 추출
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                                                                │
-│   N_CF = (e₁' + e₁' · ρ · A · (I - ρA)⁻¹) · u_{t+1}           │
-│                                                                │
-│   where:                                                       │
-│   • e₁ = [1, 0, 0]' (selection vector)                        │
-│   • ρ = 0.997 (daily discount factor)                         │
-│   • A = VAR coefficient matrix                                 │
-│   • I = Identity matrix                                        │
-│   • u_{t+1} = VAR residuals                                   │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+
+$$\Large N_{CF,t+1} = \left( \mathbf{e}_1' + \mathbf{e}_1' \rho \mathbf{A} (\mathbf{I} - \rho \mathbf{A})^{-1} \right) \mathbf{u}_{t+1}$$
+
+</div>
+
+<table>
+<tr>
+<th width="20%" align="center">Symbol</th>
+<th width="80%">Description</th>
+</tr>
+<tr><td align="center">$\mathbf{e}_1$</td><td>Selection vector $[1, 0, 0]'$</td></tr>
+<tr><td align="center">$\rho$</td><td>Daily discount factor (0.997)</td></tr>
+<tr><td align="center">$\mathbf{A}$</td><td>VAR coefficient matrix</td></tr>
+<tr><td align="center">$\mathbf{I}$</td><td>Identity matrix</td></tr>
+<tr><td align="center">$\mathbf{u}_{t+1}$</td><td>VAR residuals</td></tr>
+</table>
 
 #### Discount Rate News 추출
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                                                                │
-│   N_DR = e₁' · ρ · A · (I - ρA)⁻¹ · u_{t+1}                   │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+
+$$\Large N_{DR,t+1} = \mathbf{e}_1' \rho \mathbf{A} (\mathbf{I} - \rho \mathbf{A})^{-1} \mathbf{u}_{t+1}$$
+
+</div>
 
 ### Cash-Flow Beta 추정
 
 <div align="center">
 
-### β<sub>CF,i</sub> = Cov(r<sub>i</sub>, N<sub>CF</sub>) / Var(N<sub>CF</sub>)
+$$\Large \beta_{i}^{CF} = \frac{\text{Cov}(r_i, N_{CF})}{\text{Var}(N_{CF})}$$
 
 </div>
 
@@ -399,12 +413,12 @@ Expected Return
 </tr>
 <tr>
 <td align="center"><strong>Vasicek Adjustment</strong></td>
-<td align="center">0.6 × β<sub>raw</sub> + 0.4</td>
+<td align="center">$0.6 \times \beta_{raw} + 0.4$</td>
 <td>극단값 완화</td>
 </tr>
 <tr>
 <td align="center"><strong>Clipping Range</strong></td>
-<td align="center">[0.1, 3.0]</td>
+<td align="center">$[0.1, 3.0]$</td>
 <td>극단값 제한</td>
 </tr>
 </table>
@@ -496,7 +510,7 @@ Expected Return
 
 <div align="center">
 
-### r<sub>BACBB</sub> = w<sub>L</sub> · β<sub>L</sub><sup>-1</sup> · (r<sub>L</sub> - r<sub>f</sub> - f) - w<sub>S</sub> · β<sub>H</sub><sup>-1</sup> · (r<sub>H</sub> - r<sub>f</sub> - f)
+$$\Large r_{BACBB} = w_L \cdot \frac{1}{\beta_L^{CF}} \cdot (r_L - r_f - f) - w_S \cdot \frac{1}{\beta_H^{CF}} \cdot (r_H - r_f - f)$$
 
 </div>
 
@@ -506,14 +520,14 @@ Expected Return
 <th width="50%">Description</th>
 <th width="30%" align="center">Value</th>
 </tr>
-<tr><td align="center"><strong>w<sub>L</sub></strong></td><td>Long 비중</td><td align="center">0.7</td></tr>
-<tr><td align="center"><strong>w<sub>S</sub></strong></td><td>Short 비중</td><td align="center">0.3</td></tr>
-<tr><td align="center"><strong>β<sub>L</sub></strong></td><td>Long 포트폴리오 평균 베타</td><td align="center">-</td></tr>
-<tr><td align="center"><strong>β<sub>H</sub></strong></td><td>Short 포트폴리오 평균 베타</td><td align="center">-</td></tr>
-<tr><td align="center"><strong>r<sub>L</sub></strong></td><td>Long 포트폴리오 수익률</td><td align="center">-</td></tr>
-<tr><td align="center"><strong>r<sub>H</sub></strong></td><td>Short 포트폴리오 수익률</td><td align="center">-</td></tr>
-<tr><td align="center"><strong>r<sub>f</sub></strong></td><td>무위험수익률</td><td align="center">3M Treasury</td></tr>
-<tr><td align="center"><strong>f</strong></td><td>펀딩비</td><td align="center">Actual data</td></tr>
+<tr><td align="center">$w_L$</td><td>Long 비중</td><td align="center">0.7</td></tr>
+<tr><td align="center">$w_S$</td><td>Short 비중</td><td align="center">0.3</td></tr>
+<tr><td align="center">$\beta_L^{CF}$</td><td>Long 포트폴리오 평균 CF Beta</td><td align="center">-</td></tr>
+<tr><td align="center">$\beta_H^{CF}$</td><td>Short 포트폴리오 평균 CF Beta</td><td align="center">-</td></tr>
+<tr><td align="center">$r_L$</td><td>Long 포트폴리오 수익률</td><td align="center">-</td></tr>
+<tr><td align="center">$r_H$</td><td>Short 포트폴리오 수익률</td><td align="center">-</td></tr>
+<tr><td align="center">$r_f$</td><td>무위험수익률</td><td align="center">3M Treasury</td></tr>
+<tr><td align="center">$f$</td><td>펀딩비 (거래비용)</td><td align="center">Actual data</td></tr>
 </table>
 
 
@@ -755,7 +769,7 @@ Expected Return
 
 ### 5분위 포트폴리오 분석
 
-Cash-Flow Beta 기준 5분위 분석:
+Cash-Flow Beta ($\beta^{CF}$) 기준 5분위 분석:
 
 <table>
 <tr>
@@ -767,7 +781,7 @@ Cash-Flow Beta 기준 5분위 분석:
 <th width="15%" align="center">비고</th>
 </tr>
 <tr>
-<td align="center"><strong>Q1</strong> (Low CF β)</td>
+<td align="center"><strong>Q1</strong> (Low $\beta^{CF}$)</td>
 <td align="center"><strong>22.34%</strong></td>
 <td align="center">0.94</td>
 <td align="center">2.51</td>
@@ -799,7 +813,7 @@ Cash-Flow Beta 기준 5분위 분석:
 <td align="center"></td>
 </tr>
 <tr>
-<td align="center"><strong>Q5</strong> (High CF β)</td>
+<td align="center"><strong>Q5</strong> (High $\beta^{CF}$)</td>
 <td align="center">-2.45%</td>
 <td align="center">-0.11</td>
 <td align="center">-0.29</td>
@@ -807,7 +821,7 @@ Cash-Flow Beta 기준 5분위 분석:
 <td align="center">📉</td>
 </tr>
 <tr style="background-color: #f0f0f0;">
-<td align="center"><strong>Q1-Q5 Spread</strong></td>
+<td align="center"><strong>Q1 − Q5</strong></td>
 <td align="center"><strong>24.79%</strong></td>
 <td align="center"><strong>1.12</strong></td>
 <td align="center"><strong>2.98</strong></td>
@@ -816,15 +830,13 @@ Cash-Flow Beta 기준 5분위 분석:
 </tr>
 </table>
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   📊 Q1(저 CF Beta) → Q5(고 CF Beta)로 갈수록 수익률 단조 감소     │
-│   🏆 Q1-Q5 스프레드: 연 24.79%, 샤프 1.12                        │
-│      → 통계적으로 매우 유의 (t=2.98, p=0.003)                     │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+
+> 📊 **Q1**(저 $\beta^{CF}$) → **Q5**(고 $\beta^{CF}$)로 갈수록 수익률 **단조 감소**
+> 
+> 🏆 **Q1−Q5 스프레드**: 연 **24.79%**, 샤프 **1.12**, $t = 2.98^{***}$ $(p = 0.003)$
+
+</div>
 
 
 ### Figure 5-9: Additional Analysis
@@ -901,7 +913,7 @@ Cash-Flow Beta 기준 5분위 분석:
 <img src="figures/sample_12_Beta_Heatmap.png" width="90%">
 </p>
 
-<p align="center"><em>49개 자산의 Beta 분포를 2D 히트맵으로 표현. 중앙선(β=1, β<sub>CF</sub>=1)을 기준으로 4개 사분면으로 구분</em></p>
+<p align="center"><em>49개 자산의 Beta 분포를 2D 히트맵으로 표현. 중앙선($\beta=1$, $\beta^{CF}=1$)을 기준으로 4개 사분면으로 구분</em></p>
 
 </details>
 
@@ -999,36 +1011,36 @@ Cash-Flow Beta 기준 5분위 분석:
 </details>
 
 
-### 자산별 CF Beta 분석
+### 자산별 $\beta^{CF}$ 분석
 
 50개 암호화폐를 Cash-Flow Beta 기준으로 분류하여 그룹별 성과를 분석했다.
 
-#### CF Beta 기준 그룹 분류
+#### $\beta^{CF}$ 기준 그룹 분류
 
 <table>
 <tr>
 <th width="25%" align="center">그룹</th>
 <th width="15%" align="center">코인 수</th>
-<th width="20%" align="center">평균 CF Beta</th>
+<th width="20%" align="center">평균 $\beta^{CF}$</th>
 <th width="20%" align="center">평균 연수익률</th>
 <th width="20%" align="center">평균 샤프</th>
 </tr>
 <tr>
-<td align="center">🟢 <strong>Low CF Beta</strong> (Long)</td>
+<td align="center">🟢 <strong>Low</strong> $\beta^{CF}$ (Long)</td>
 <td align="center">16</td>
 <td align="center">0.345</td>
 <td align="center"><strong>44.3%</strong></td>
 <td align="center"><strong>0.44</strong></td>
 </tr>
 <tr>
-<td align="center">🟡 Mid CF Beta</td>
+<td align="center">🟡 Mid $\beta^{CF}$</td>
 <td align="center">16</td>
 <td align="center">0.368</td>
 <td align="center">37.1%</td>
 <td align="center">0.40</td>
 </tr>
 <tr>
-<td align="center">🔴 <strong>High CF Beta</strong> (Short)</td>
+<td align="center">🔴 <strong>High</strong> $\beta^{CF}$ (Short)</td>
 <td align="center">16</td>
 <td align="center">0.451</td>
 <td align="center">21.3%</td>
@@ -1036,14 +1048,14 @@ Cash-Flow Beta 기준 5분위 분석:
 </tr>
 </table>
 
-<p align="center"><em>저 CF Beta 그룹이 고 CF Beta 그룹 대비 <strong>2배 이상 높은 수익률</strong>을 기록했다.</em></p>
+<p align="center"><em>저 $\beta^{CF}$ 그룹이 고 $\beta^{CF}$ 그룹 대비 <strong>2배 이상 높은 수익률</strong>을 기록했다.</em></p>
 
-#### 저 CF Beta 코인 (Long 후보) - 현금흐름 충격에 방어력
+#### 저 $\beta^{CF}$ 코인 (Long 후보) - 현금흐름 충격에 방어력
 
 <table>
 <tr>
 <th align="center">코인</th>
-<th align="center">CF Beta</th>
+<th align="center">$\beta^{CF}$</th>
 <th align="center">연수익률</th>
 <th align="center">샤프</th>
 <th align="center">MDD</th>
@@ -1058,12 +1070,12 @@ Cash-Flow Beta 기준 5분위 분석:
 <tr><td align="center"><strong>ADA</strong></td><td align="center">0.343</td><td align="center">40.8%</td><td align="center">0.51</td><td align="center">-91.9%</td></tr>
 </table>
 
-#### 고 CF Beta 코인 (Short 후보) - 현금흐름 충격에 취약
+#### 고 $\beta^{CF}$ 코인 (Short 후보) - 현금흐름 충격에 취약
 
 <table>
 <tr>
 <th align="center">코인</th>
-<th align="center">CF Beta</th>
+<th align="center">$\beta^{CF}$</th>
 <th align="center">연수익률</th>
 <th align="center">샤프</th>
 <th align="center">MDD</th>
@@ -1085,34 +1097,33 @@ Cash-Flow Beta 기준 5분위 분석:
 <img src="figures/Figure_Asset_CF_Beta.png" width="90%">
 </p>
 
-<p align="center"><em>CF Beta가 낮을수록 연수익률이 높은 <strong>음의 상관관계</strong>가 관찰된다. 버블 크기는 변동성을 나타낸다.</em></p>
+<p align="center"><em>$\beta^{CF}$가 낮을수록 연수익률이 높은 <strong>음의 상관관계</strong>가 관찰된다. 버블 크기는 변동성을 나타낸다.</em></p>
 
 <p align="center">
 <img src="figures/Figure_Group_Performance.png" width="90%">
 </p>
 
-<p align="center"><em>Low CF Beta 그룹이 모든 성과 지표에서 High CF Beta 그룹을 <strong>압도</strong>한다.</em></p>
+<p align="center"><em>Low $\beta^{CF}$ 그룹이 모든 성과 지표에서 High $\beta^{CF}$ 그룹을 <strong>압도</strong>한다.</em></p>
 
 <p align="center">
 <img src="figures/Figure_Beta_Distribution.png" width="90%">
 </p>
 
-<p align="center"><em>CF Beta와 FP Beta의 분포. 대부분의 자산이 0.3~0.5 범위에 분포한다.</em></p>
+<p align="center"><em>$\beta^{CF}$와 $\beta^{FP}$의 분포. 대부분의 자산이 0.3~0.5 범위에 분포한다.</em></p>
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                                     │
-│   📊 핵심 발견:                                                      │
-│                                                                     │
-│   • 저 CF Beta 코인: 평균 연 44.3%, 샤프 0.44                        │
-│   • 고 CF Beta 코인: 평균 연 21.3%, 샤프 0.22                        │
-│   • 수익률 차이: +23.0%p (저베타 우위)                                │
-│   • 샤프비율 차이: +0.22 (저베타 우위)                                │
-│                                                                     │
-│   → Cash-Flow Beta가 암호화폐 수익률 예측에 유효함을 입증             │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+
+> 📊 **핵심 발견**
+> 
+> | 그룹 | 평균 연수익률 | 평균 샤프 |
+> |:---:|:---:|:---:|
+> | 저 $\beta^{CF}$ | **44.3%** | **0.44** |
+> | 고 $\beta^{CF}$ | 21.3% | 0.22 |
+> | **차이** | **+23.0%p** | **+0.22** |
+> 
+> → $\beta^{CF}$가 암호화폐 수익률 예측에 **유효함**을 입증
+
+</div>
 
 <br>
 
@@ -1124,7 +1135,7 @@ Cash-Flow Beta 기준 5분위 분석:
 
 본 연구는 **Frazzini & Pedersen(2014)**의 BAB 전략과 **Campbell & Vuolteenaho(2004)**의 Bad Beta 개념을 결합하여 암호화폐 시장에 적용한 **BACBB 전략**을 제안했다.
 
-VAR 모델과 Campbell-Shiller 분해를 통해 시장 수익률을 **Cash-Flow News**와 **Discount Rate News**로 분해하고, 각 자산의 **Cash-Flow Beta**를 추정했다.
+VAR 모델과 Campbell-Shiller 분해를 통해 시장 수익률을 $N_{CF}$ (Cash-Flow News)와 $N_{DR}$ (Discount Rate News)로 분해하고, 각 자산의 $\beta^{CF}$를 추정했다.
 
 <table>
 <tr>
@@ -1160,8 +1171,8 @@ VAR 모델과 Campbell-Shiller 분해를 통해 시장 수익률을 **Cash-Flow 
 </tr>
 <tr>
 <td align="center"><strong>1</strong></td>
-<td><strong>Cash-Flow Beta의 유효성</strong></td>
-<td>암호화폐 시장에서 Cash-Flow Beta는 유의미한 자산 선별 기준으로 작동<br>Q1-Q5 스프레드: 연 24.79%, t=2.98, p=0.003***</td>
+<td><strong>$\beta^{CF}$의 유효성</strong></td>
+<td>암호화폐 시장에서 $\beta^{CF}$는 유의미한 자산 선별 기준으로 작동<br>Q1−Q5 스프레드: 연 24.79%, $t=2.98^{***}$, $p=0.003$</td>
 </tr>
 <tr>
 <td align="center"><strong>2</strong></td>
@@ -1171,12 +1182,12 @@ VAR 모델과 Campbell-Shiller 분해를 통해 시장 수익률을 **Cash-Flow 
 <tr>
 <td align="center"><strong>3</strong></td>
 <td><strong>통계적 유의성</strong></td>
-<td>t-통계량 2.79, p-value 0.0054<br>→ 1% 유의수준에서 통계적으로 유의</td>
+<td>$t = 2.79^{***}$, $p = 0.0054$<br>→ 1% 유의수준에서 통계적으로 유의</td>
 </tr>
 <tr>
 <td align="center"><strong>4</strong></td>
-<td><strong>Out-of-Sample 견고성</strong></td>
-<td>OOS 샤프비율 1.09 (p=0.037)<br>→ 전략의 견고성과 과적합 부재 확인</td>
+<td><strong>OOS 견고성</strong></td>
+<td>OOS 샤프비율 1.09 ($p=0.037$)<br>→ 전략의 견고성과 과적합 부재 확인</td>
 </tr>
 <tr>
 <td align="center"><strong>5</strong></td>
@@ -1194,11 +1205,11 @@ VAR 모델과 Campbell-Shiller 분해를 통해 시장 수익률을 **Cash-Flow 
 </tr>
 <tr>
 <td align="center">1️⃣</td>
-<td>암호화폐 시장에 <strong>Bad Beta 개념을 최초로 적용</strong></td>
+<td>암호화폐 시장에 <strong>Bad Beta ($\beta^{CF}$) 개념을 최초로 적용</strong></td>
 </tr>
 <tr>
 <td align="center">2️⃣</td>
-<td><strong>VAR 모델 기반 Cash-Flow Beta 추정 방법론</strong> 제시</td>
+<td><strong>VAR 모델 기반 $\beta^{CF}$ 추정 방법론</strong> 제시</td>
 </tr>
 <tr>
 <td align="center">3️⃣</td>
